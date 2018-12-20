@@ -136,7 +136,11 @@ Plugin 'othree/html5.vim' " html completion
 " Bootsrap 4
 Plugin 'jvanja/vim-bootstrap4-snippets'
 
-
+" typescript
+"
+Plugin 'leafgarland/typescript-vim'
+Plugin 'Quramy/tsuquyomi'
+Plugin 'Shougo/vimproc.vim'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Plugins
@@ -196,6 +200,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 let g:ctrlp_working_path_mode = 'c'
 "
 "========================================
+" TypeScript
+"========================================
+"
+"
+"========================================
 " NeoCompletme
 "========================================
 " Disable AutoComplPop.
@@ -216,8 +225,11 @@ let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Omni completation
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 
 
