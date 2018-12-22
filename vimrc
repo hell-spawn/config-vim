@@ -122,7 +122,6 @@ Plugin 'ctrlpvim/ctrlp.vim'
 " Developer
 Plugin 'vim-syntastic/syntastic'
 Plugin 'shougo/neocomplete.vim' "Completado codigo
-Plugin 'Shougo/neosnippet.vim' " 
 Plugin 'SirVer/ultisnips' " Manager snippets
 Plugin 'honza/vim-snippets' "Collection snippets
 Plugin 'jiangmiao/auto-pairs.git' "Insert or delete brackets, parens, quotes in pair.
@@ -163,6 +162,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_html_checkers=['']
 
 "========================================
 " Ultisnips 
@@ -176,9 +176,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
 " List Snippes
-let g:UltiSnipsListSnippets="<F2>"
+let g:UltiSnipsListSnippets="<F3>"
 
-let g:UltiSnipsSnippetDirectories = ['~/.vim/bundle/ultisnips/snippets']
+let g:UltiSnipsSnippetDirectories=["~/.vim/snippets/", "UltiSnips"]
 
 "========================================
 " vim-airline
@@ -197,7 +197,9 @@ let g:airline_theme='powerlineish'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " CtrlP will set its local working directory according
-let g:ctrlp_working_path_mode = 'c'
+
+" Ignore Files
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 "
 "========================================
 " TypeScript
@@ -236,6 +238,12 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Misc
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup filetypedetect
+    au BufRead,BufNewFile *.ts set filetype=typescript
+augroup END
+
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
