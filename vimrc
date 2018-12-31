@@ -140,6 +140,7 @@ Plugin 'jvanja/vim-bootstrap4-snippets'
 Plugin 'leafgarland/typescript-vim'
 Plugin 'Quramy/tsuquyomi'
 Plugin 'Shougo/vimproc.vim'
+Plugin 'hell-spawn/vim-angular2-snippets'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Plugins
@@ -200,6 +201,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " Ignore Files
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_use_caching = 0
 "
 "========================================
 " TypeScript
