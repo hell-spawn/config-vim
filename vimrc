@@ -76,6 +76,10 @@ set nobackup
 set nowb
 set noswapfile
 
+
+" Formant XML  with xmllint
+au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Text, tab and indent related
 """"""""""""""""""""""""""""""""""""""""""""""""""
