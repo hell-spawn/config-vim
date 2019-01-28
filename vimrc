@@ -76,6 +76,8 @@ set nobackup
 set nowb
 set noswapfile
 
+let g:html_indent_script1 = "inc"
+let g:html_indent_style1 = "inc"
 
 " Formant XML  with xmllint
 au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
