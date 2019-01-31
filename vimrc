@@ -51,6 +51,9 @@ let g:elite_mode=1
 " Enable highlighting of the current line
 set cursorline
 
+" show command in bottom bar
+set showcmd    
+
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -78,9 +81,6 @@ set noswapfile
 
 let g:html_indent_script1 = "inc"
 let g:html_indent_style1 = "inc"
-
-" Formant XML  with xmllint
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Text, tab and indent related
