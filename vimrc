@@ -66,7 +66,7 @@ try
 catch
 endtry
 
-
+set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Files and backups
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -90,6 +90,7 @@ set smarttab
 
 " 1 tab == 4 spaces
 set shiftwidth=4
+set shiftround
 set tabstop=4
 
 " Set  no wrap lines
