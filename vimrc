@@ -278,3 +278,10 @@ function! <SID>InsSemiColon() abort
         startinsert!
     endif
 endfunction
+
+" XML formatter
+function! DoFormatXML()
+		exe ':'.'%s/<\([^>]\)*>/\r&\r/g'
+		exe ':'.'%g/^\s*$/delete'
+endfunction
+
