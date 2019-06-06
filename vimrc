@@ -205,10 +205,11 @@ let g:airline_theme='powerlineish'
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 " CtrlP will set its local working directory according
-
-" Ignore Files
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+let g:ctrlp_working_path_mode = 'w'
+" Ignore Fileccs
+" let g:ctrlp_custom_ignore = 'node_modules\|DS_Store'
 let g:ctrlp_use_caching = 0
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 "
 "========================================
 " TypeScript
@@ -284,4 +285,3 @@ function! DoFormatXML()
 		exe ':'.'%s/<\([^>]\)*>/\r&\r/g'
 		exe ':'.'%g/^\s*$/delete'
 endfunction
-
