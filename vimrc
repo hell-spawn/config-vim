@@ -254,30 +254,24 @@ augroup filetypedetect
 augroup END
 
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 nnoremap \d :bp<cr>:bd #<cr>
-
 inoremap <C-_> <Esc>:call <SID>InsSemiColon()<CR>
 function! <SID>InsSemiColon() abort
     let l:line = line('.')
     let l:content = getline('.')
     let l:eol = ';'
-    " If the line ends with a semicolon we simply insert one.
-    if l:content[col('$') - 2] ==# ';'
-        normal! a;
-        normal! l
-        startinsert
-    else
-        if search('(', 'bcn', l:line)
-            let l:eol = search(')', 'cn', l:line) ?  ';' : ');'
-        endif
+	let l:content = substitute(l:content, '\s*$', '','')
+	if l:content[col('$') - 2] ==# ';'
+        normal! a
+		normal! l
+	else
         call setline(l:line, l:content . l:eol)
-        startinsert!
-    endif
+		startinsert!
+	endif
 endfunction
 
 " XML formatter
