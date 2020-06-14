@@ -54,6 +54,10 @@ set cursorline
 " show command in bottom bar
 set showcmd    
 
+" bells
+set novisualbell
+set noerrorbells
+
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -62,7 +66,7 @@ syntax on
 
 " Use theme
 try
-    colorscheme spawn
+    colorscheme darcula
 catch
 endtry
 
@@ -72,7 +76,7 @@ set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
 """"""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+set encoding=utf-8
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
@@ -114,6 +118,9 @@ set nowrap
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+
+"Plugin color
+Plugin 'doums/darcula'
 
 "Plugin manager
 Plugin 'VundleVim/Vundle.vim' 
@@ -184,7 +191,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsEditSplit="vertical"
 
 " List Snippes
-let g:UltiSnipsListSnippets="<F3>"
+let g:UltiSnipsListSnippets="c-tab"
 
 let g:UltiSnipsSnippetDirectories=["~/.vim/snippets/", "UltiSnips"]
 
@@ -254,24 +261,31 @@ augroup filetypedetect
 augroup END
 
 
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
+" Close Buffer
 nnoremap \d :bp<cr>:bd #<cr>
+
+" Add SemiColon end of line
 inoremap <C-_> <Esc>:call <SID>InsSemiColon()<CR>
 function! <SID>InsSemiColon() abort
     let l:line = line('.')
     let l:content = getline('.')
     let l:eol = ';'
-	let l:content = substitute(l:content, '\s*$', '','')
-	if l:content[col('$') - 2] ==# ';'
-        normal! a
-		normal! l
-	else
+    " If the line ends with a semicolon we simply insert one.
+    if l:content[col('$') - 2] ==# ';'
+        normal! a;
+        normal! l
+        startinsert
+    else
+        if search('(', 'bcn', l:line)
+            let l:eol = search(')', 'cn', l:line) ?  ';' : ');'
+        endif
         call setline(l:line, l:content . l:eol)
-		startinsert!
-	endif
+        startinsert!
+    endif
 endfunction
 
 " XML formatter
