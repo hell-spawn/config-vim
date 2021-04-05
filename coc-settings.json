@@ -1,0 +1,28 @@
+{
+  "suggest.echodocSupport": true,
+  "suggest.maxCompleteItemCount": 20,
+  "coc.preferences.formatOnSaveFiletypes": [
+    "javascript",
+    "typescript",
+    "typescriptreact",
+    "json",
+    "javascriptreact",
+    "typescript.tsx",
+    "html"
+  ],
+  "diagnostic.errorSign": "•",
+  "diagnostic.warningSign": "•",
+  "diagnostic.infoSign": "•",
+  "eslint.run": "onType",
+  "eslint.options": {
+    "configfie": "~/.eslintrc.json"
+  },
+  "suggest.floatEnable": true,
+  "html.format.wrapAttributes": "auto",
+  "snippets.extends": {
+    "javascriptreact": ["javascript"],
+    "typescript": ["javascript", "ng2"],
+    "html": ["ng2html"]
+  },
+  "explorer.icon.enableVimDevicons": true
+}

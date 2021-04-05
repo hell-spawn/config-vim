@@ -32,8 +32,10 @@ set termguicolors
 "set bg=dark
 "set t_Co=256
 "
+set background=dark
+
 " Use theme
-colorscheme nord 
+colorscheme gruvbox 
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf-8
@@ -69,8 +71,31 @@ set nowrap
 " Moving around, tabs and buffers
 """"""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = " "
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" Status line
+"plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.vim/plugged')
+
+Plug 'chun-yang/auto-pairs'
+Plug 'neoclide/coc.nvim'
+Plug 'mattn/emmet-vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'ryanoasis/vim-devicons'
+Plug 'hell-spawn/vim-spawn-snippets'
+
+Plug 'arcticicestudio/nord-vim'
+Plug 'morhetz/gruvbox'
+Plug 'joshdick/onedark.vim'
+
+call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " air-line
 let g:airline_powerline_fonts = 1
@@ -88,28 +113,8 @@ let g:airline_symbols.branch = ''
 let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ''
 
-""""""""""""""""""""""""""""""""""""""""""""""""""
-"plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
-
-Plug 'chun-yang/auto-pairs'
-Plug 'neoclide/coc.nvim'
-Plug 'mattn/emmet-vim'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
-Plug 'hell-spawn/vim-spawn-snippets'
-Plug 'arcticicestudio/nord-vim'
-
-call plug#end()
-
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Config Plugins
-""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " fzf 
   let g:fzf_nvim_statusline = 0 " disable statusline overwriting
