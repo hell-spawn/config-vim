@@ -35,14 +35,14 @@ set termguicolors
 " Use theme
 colorscheme nord 
 
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf-8
+set guifont=DejaVuSansMono\ Nerd\ Font\ Bold\ 12
+
 set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Files and backups
 """"""""""""""""""""""""""""""""""""""""""""""""""
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf-8
-set guifont=DejaVuSansMono\ Nerd\ Font\ Bold\ 12
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
