@@ -80,12 +80,13 @@ set background=dark
 " Use theme
 colorscheme gruvbox 
 
-"LINUX
+"TODO-LINUX
 "set guifont=DejaVuSansMono\ Nerd\ Font\ Bold\ 12
 "WIN DejaVuSansMono NF no funciona 
 "set guifont=DejaVuSansMono\ NF:h11:b
 
-set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
+"TODO-LINUX
+"set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Files and backups
@@ -105,10 +106,11 @@ set noswapfile
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set shiftround
+" show existing tab with 4 spaces width
 set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
 set expandtab
 
 " Set  no wrap lines
@@ -166,30 +168,13 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Config Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
-"
-"-VIM AIRLINE
-"
+" air-line
+let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
-let g:airline_theme = 'gruvbox'
-"TODO-WINDOWS
-"let g:airline_powerline_fonts = 0
-"let g:airline#extensions#tabline#enabled = 1
-"" unicode symbols
-"let g:airline_left_sep = '»'
-"let g:airline_right_sep = '«'
-"let g:airline_symbols.crypt = '®'
-"let g:airline_symbols.linenr = '¦'
-"let g:airline_symbols.maxlinenr = '±'
-"let g:airline_symbols.branch = '↑'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.spell = '©'
-"let g:airline_symbols.notexists = 'Ɇ'
-"let g:airline_symbols.whitespace = 'Ξ'
 
-"TODO-LINUX
 " airline symbols
 "let g:airline_powerline_fonts = 1
 "let g:airline_left_sep = ''
@@ -247,7 +232,7 @@ set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 "set shortmess+=c
-"
+
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
