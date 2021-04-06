@@ -14,44 +14,90 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""
-set number
-set relativenumber
+
+" Sets how many lines of history VIM has to remember
+set history=1000
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" make backspaces delete sensibly
+set backspace=indent,eol,start
+
+set path+=**
+
+set hidden
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " VIM user interface
 """"""""""""""""""""""""""""""""""""""""""""""""""
+"Add number line"
+set number
 
+" Number relative
+set relativenumber
+set numberwidth=4
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" Highlight search results
+set hlsearch
+
+" Height of the command bar
+set cmdheight=2
+
+"Always show current position
+set ruler
+
+" Enable Elite mode, No ARRRROWWS!!!!
+let g:elite_mode=1
+
+" Enable highlighting of the current line
+set cursorline
+
+" show command in bottom bar
+set showcmd    
+
+" bells
+set noerrorbells
+set visualbell
+set belloff=all
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax on 
 
-set termguicolors
+if has("termguicolors")
+    set termguicolors
+endif
 "set bg=light
-"set bg=dark
-"set t_Co=256
-"
+set t_Co=256
 set background=dark
 
 " Use theme
 colorscheme gruvbox 
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf-8
-set guifont=DejaVuSansMono\ Nerd\ Font\ Bold\ 12
+"LINUX
+"set guifont=DejaVuSansMono\ Nerd\ Font\ Bold\ 12
+"WIN DejaVuSansMono NF no funciona 
+"set guifont=DejaVuSansMono\ NF:h11:b
 
 set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Files and backups
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf-8
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
-
-filetype indent on
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Text, tab and indent related
@@ -63,94 +109,136 @@ set smarttab
 set shiftwidth=4
 set shiftround
 set tabstop=4
+set expandtab
 
 " Set  no wrap lines
 set nowrap 
 
+" Performance search
+set ignorecase
+set smartcase
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Moving around, tabs and buffers
 """"""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = " "
+" Status line
+set noshowmode
+" Leader
+let mapleader=" "
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
-"plugins
+" Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin('~/.vim/plugged')
+"TODO-LINUX
+"call plug#begin('~/.vim/plugged')
+"TODO-WINDOWS
+call plug#begin('~/vimfiles/plugged')
 
-Plug 'chun-yang/auto-pairs'
-Plug 'neoclide/coc.nvim'
-Plug 'mattn/emmet-vim'
-Plug 'junegunn/fzf'
+"coc.vim
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'editorconfig/editorconfig-vim'
+
+"fzf
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+"Color Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ryanoasis/vim-devicons'
-Plug 'hell-spawn/vim-spawn-snippets'
 
-Plug 'arcticicestudio/nord-vim'
+"Color editor
+Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'morhetz/gruvbox'
 Plug 'joshdick/onedark.vim'
+
+"Fuentes
+Plug 'ryanoasis/vim-devicons'
+
+"Utilites
+Plug 'chun-yang/auto-pairs'
+Plug 'mattn/emmet-vim'
+
+"Snippets
+Plug 'hell-spawn/vim-spawn-snippets'
 
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Config Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" air-line
-let g:airline_powerline_fonts = 1
+"
+"-VIM AIRLINE
+"
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+let g:airline_theme = 'gruvbox'
+"TODO-WINDOWS
+"let g:airline_powerline_fonts = 0
+"let g:airline#extensions#tabline#enabled = 1
+"" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_right_sep = '«'
+"let g:airline_symbols.crypt = '®'
+"let g:airline_symbols.linenr = '¦'
+"let g:airline_symbols.maxlinenr = '±'
+"let g:airline_symbols.branch = '↑'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.spell = '©'
+"let g:airline_symbols.notexists = 'Ɇ'
+"let g:airline_symbols.whitespace = 'Ξ'
 
+"TODO-LINUX
 " airline symbols
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
+"let g:airline_powerline_fonts = 1
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+"
+" - FZF 
+"
 
-" fzf 
-  let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 
-  nnoremap <silent> <leader><space> :Files<CR>
-  nnoremap <silent> <leader>b :Buffers<CR>
-  nnoremap <silent> <leader>A :Windows<CR>
-  nnoremap <silent> <leader>; :BLines<CR>
-  "nnoremap <silent> <leader>o :BTags<CR>
-  "nnoremap <silent> <leader>O :Tags<CR>
-  "nnoremap <silent> <leader>? :History<CR>
-  "nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
-  "nnoremap <silent> <leader>. :AgIn 
+nnoremap <silent> <leader><space> :Files<CR>
+nnoremap <silent> <leader>b :Buffers<CR>
+nnoremap <silent> <leader>A :Windows<CR>
+nnoremap <silent> <leader>; :BLines<CR>
+"nnoremap <silent> <leader>o :BTags<CR>
+"nnoremap <silent> <leader>O :Tags<CR>
+"nnoremap <silent> <leader>? :History<CR>
+"nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+"nnoremap <silent> <leader>. :AgIn 
 
-" disable conflict Cocvim
-"  nnoremap <silent> K :call SearchWordWithAg()<CR>
-"  vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
-  nnoremap <silent> <leader>gl :Commits<CR>
-  nnoremap <silent> <leader>ga :BCommits<CR>
-  nnoremap <silent> <leader>ft :Filetypes<CR>
+"disable conflict Cocvim
+"nnoremap <silent> K :call SearchWordWithAg()<CR>
+"vnoremap <silent> K :call SearchVisualSelectionWithAg()<CR>
+nnoremap <silent> <leader>gl :Commits<CR>
+nnoremap <silent> <leader>ga :BCommits<CR>
+nnoremap <silent> <leader>ft :Filetypes<CR>
 
-  imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-  imap <C-x><C-l> <plug>(fzf-complete-line)
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
 
-" Coc-explorer
-nnoremap <space>e :CocCommand explorer<CR>
+"
+"-COC VIM
+" 
 
-" CocVim
 " TextEdit might fail if hidden is not set.
-set hidden
+"set hidden
 
 " Some servers have issues with backup files, see #649.
 "set nobackup
 "set nowritebackup
-
-" Give more space for displaying messages.
+"Give more space for displaying messages.
 set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
@@ -158,8 +246,8 @@ set cmdheight=2
 set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
+"set shortmess+=c
+"
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -173,10 +261,16 @@ endif
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+"inoremap <silent><expr> <TAB>
+"      \ pumvisible() ? "\<C-n>" :
+"      \ <SID>check_back_space() ? "\<TAB>" :
+"      \ coc#refresh()
+"inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -184,16 +278,28 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+"if exists('*complete_info')
+"  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+"else
+"  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"endif
+"
+" Use <c-space> to trigger completion.
+"if has('nvim')
+"  inoremap <silent><expr> <c-space> coc#refresh()
+"else
+"  inoremap <silent><expr> <c-@> coc#refresh()
+"endif
 
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+"                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -212,87 +318,84 @@ nnoremap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
-    call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call CocAction('doHover')
   endif
 endfunction
 
-" Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"function! s:show_documentation()
+"  if (index(['vim','help'], &filetype) >= 0)
+"    execute 'h '.expand('<cword>')
+"  elseif (coc#rpc#ready())
+"    call CocActionAsync('doHover')
+"  else
+"    execute '!' . &keywordprg . " " . expand('<cword>')
+"  endif
+"endfunction
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
+"xmap <leader>f  <Plug>(coc-format-selected)
+"nmap <leader>f  <Plug>(coc-format-selected)
+"
+"augroup mygroup
+"  autocmd!
+"  " Setup formatexpr specified filetype(s).
+"  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+"  " Update signature help on jump placeholder.
+"  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+"augroup end
+"
+"" Applying codeAction to the selected region.
+"" Example: `<leader>aap` for current paragraph
+"xmap <leader>a  <Plug>(coc-codeaction-selected)
+"nmap <leader>a  <Plug>(coc-codeaction-selected)
+"
+"" Remap keys for applying codeAction to the current buffer.
+"nmap <leader>ac  <Plug>(coc-codeaction)
+"" Apply AutoFix to problem on the current line.
+"nmap <leader>qf  <Plug>(coc-fix-current)
+"
+"" Map function and class text objects
+"" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+"xmap if <Plug>(coc-funcobj-i)
+"omap if <Plug>(coc-funcobj-i)
+"xmap af <Plug>(coc-funcobj-a)
+"omap af <Plug>(coc-funcobj-a)
+"xmap ic <Plug>(coc-classobj-i)
+"omap ic <Plug>(coc-classobj-i)
+"xmap ac <Plug>(coc-classobj-a)
+"omap ac <Plug>(coc-classobj-a)
+"
+"" Remap <C-f> and <C-b> for scroll float windows/popups.
+"if has('nvim-0.4.0') || has('patch-8.2.0750')
+"  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+"  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+"  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+"  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+"endif
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
-
-" Remap <C-f> and <C-b> for scroll float windows/popups.
-if has('nvim-0.4.0') || has('patch-8.2.0750')
-  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-endif
-
-" NeoVim-only mapping for visual mode scroll
-" Useful on signatureHelp after jump placeholder of snippet expansion
-if has('nvim')
-  vnoremap <nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#nvim_scroll(1, 1) : "\<C-f>"
-  vnoremap <nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#nvim_scroll(0, 1) : "\<C-b>"
-endif
+"" Highlight the symbol and its references when holding the cursor.
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+"nmap <silent> <C-s> <Plug>(coc-range-select)
+"xmap <silent> <C-s> <Plug>(coc-range-select)
 
-" Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
 
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+"" Add `:Format` command to format current buffer.
+"command! -nargs=0 Format :call CocAction('format')
 
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+"" Add `:Fold` command to fold current buffer.
+"command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+"" Add `:OR` command for organize imports of the current buffer.
+"command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -312,46 +415,58 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 "" Resume latest coc list.
 "nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-"
-" Snippets
-"
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
 
-" Use <C-j> for select text for visual placeholder of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+" coc snippets 
 
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+"" Use <C-l> for trigger snippet expand.
+"imap <C-l> <Plug>(coc-snippets-expand)
 
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
+"" Use <C-j> for select text for visual placeholder of snippet.
+"vmap <C-j> <Plug>(coc-snippets-select)
 
-" Use <C-j> for both expand and jump (make expand higher priority.)
-imap <C-j> <Plug>(coc-snippets-expand-jump)
+"" Use <C-j> for both expand and jump (make expand higher priority.)
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
 
-" Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
+"" Use <leader>x for convert visual selected code to snippet
+"xmap <leader>x  <Plug>(coc-convert-snippet)
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+"" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+"let g:coc_snippet_next = '<c-j>'
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+"" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+"let g:coc_snippet_prev = '<c-k>'
 
-let g:coc_snippet_next = '<tab>'
-""""""""""""""""""""""""""""""""""""""""""""""""""
-" Editing mappings
-""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" Coc-explorer
+nnoremap <space>e :CocCommand explorer<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Close Buffer
 nnoremap \d :bp<cr>:bd #<cr>
+
+" Add SemiColon end of line
+inoremap <C-_> <Esc>:call <SID>InsSemiColon()<CR>
+function! <SID>InsSemiColon() abort
+    let l:line = line('.')
+    let l:content = getline('.')
+    let l:eol = ';'
+    " If the line ends with a semicolon we simply insert one.
+    if l:content[col('$') - 2] ==# ';'
+        normal! a;
+        normal! l
+        startinsert
+    else
+        if search('(', 'bcn', l:line)
+            let l:eol = search(')', 'cn', l:line) ?  ';' : ');'
+        endif
+        call setline(l:line, l:content . l:eol)
+        startinsert!
+    endif
+endfunction
+
+" XML formatter
+function! DoFormatXML()
+		exe ':'.'%s/<\([^>]\)*>/\r&\r/g'
+		exe ':'.'%g/^\s*$/delete'
+endfunction
