@@ -169,23 +169,41 @@ call plug#end()
 " Config Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " air-line
-let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+let g:airline_theme = 'gruvbox'
 
-" airline symbols
-"let g:airline_powerline_fonts = 1
-"let g:airline_left_sep = ''
-"let g:airline_left_alt_sep = ''
-"let g:airline_right_sep = ''
-"let g:airline_right_alt_sep = ''
-"let g:airline_symbols.branch = ''
-"let g:airline_symbols.readonly = ''
-"let g:airline_symbols.linenr = ''
+
+
+"TODO-WINDOWS
+"let g:airline_powerline_fonts = 0
+"" unicode symbols
+"let g:airline_left_sep = '»'
+"let g:airline_right_sep = '«'
+"let g:airline_symbols.crypt = '®'
+"let g:airline_symbols.linenr = '¦'
+"let g:airline_symbols.maxlinenr = '±'
+"let g:airline_symbols.branch = '↑'
+"let g:airline_symbols.paste = 'ρ'
+"let g:airline_symbols.spell = '©'
+"let g:airline_symbols.notexists = 'Ɇ'
+"let g:airline_symbols.whitespace = 'Ξ'
 "let g:airline#extensions#tabline#enabled = 1
 "let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+"TODO-LINUX
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = ''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 "
 " - FZF 
@@ -407,7 +425,7 @@ nmap <leader>rn <Plug>(coc-rename)
 "imap <C-l> <Plug>(coc-snippets-expand)
 
 "" Use <C-j> for select text for visual placeholder of snippet.
-"vmap <C-j> <Plug>(coc-snippets-select)
+vmap <C-j> <Plug>(coc-snippets-select)
 
 "" Use <C-j> for both expand and jump (make expand higher priority.)
 "imap <C-j> <Plug>(coc-snippets-expand-jump)
