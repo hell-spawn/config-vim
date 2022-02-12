@@ -14,6 +14,8 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""
+"Paths
+set rtp+=~/.fzf
 
 " Sets how many lines of history VIM has to remember
 set history=1000
@@ -62,6 +64,9 @@ set cursorline
 " show command in bottom bar
 set showcmd    
 
+" set split right
+set splitright
+
 " bells
 set noerrorbells
 set visualbell
@@ -82,14 +87,13 @@ set background=dark
 " Use theme
 colorscheme gruvbox 
 
-"TODO-LINUX
+"LINUX
 "set guifont=DejaVuSansMono\ Nerd\ Font\ Bold\ 12
 "WIN DejaVuSansMono NF no funciona 
 "set guifont=DejaVuSansMono\ NF:h11:b
 
-"TODO-LINUX
-"set listchars=tab:>-,trail:•,precedes:<,extends:>,eol:$,space:.
-
+"set listchars=tab:~,trail:-,precedes:«,extends:»,eol:$,space:.
+"set listchars=tab:=>,trail:&,precedes:<<,extends:>>eol:$,space:.
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Files and backups
 """"""""""""""""""""""""""""""""""""""""""""""""""
@@ -108,11 +112,10 @@ set noswapfile
 " Be smart when using tabs ;)
 set smarttab
 
-" show existing tab with 4 spaces width
-set tabstop=4
-" when indenting with '>', use 4 spaces width
+" 1 tab == 4 spaces
 set shiftwidth=4
-" On pressing tab, insert 4 spaces
+set shiftround
+set tabstop=4
 set expandtab
 
 " Set  no wrap lines
@@ -143,17 +146,19 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'editorconfig/editorconfig-vim'
 
 "fzf
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', {'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 "Color Airline
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'mkitt/tabline.vim'
 
 "Color editor
-Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
+"Plug 'arcticicestudio/nord-vim', { 'branch': 'develop' }
 Plug 'morhetz/gruvbox'
-Plug 'joshdick/onedark.vim'
+"Plug 'joshdick/onedark.vim'
+"Plug 'jacoborus/tender.vim'
 
 "Fuentes
 Plug 'ryanoasis/vim-devicons'
@@ -161,6 +166,8 @@ Plug 'ryanoasis/vim-devicons'
 "Utilites
 Plug 'chun-yang/auto-pairs'
 Plug 'mattn/emmet-vim'
+Plug 'tpope/vim-surround'
+Plug 'lilydjwg/colorizer'
 
 "Snippets
 Plug 'hell-spawn/vim-spawn-snippets'
@@ -170,53 +177,63 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Config Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
-" air-line
+"
+"-VIM AIRLINE
+"
 
 if !exists('g:airline_symbols')
     let g:airline_symbols = {}
 endif
+
 let g:airline_theme = 'gruvbox'
-
-
-
+let g:airline#extensions#tabline#buffer_nr_show = 1
 "TODO-WINDOWS
-"let g:airline_powerline_fonts = 0
-"" unicode symbols
-"let g:airline_left_sep = '»'
-"let g:airline_right_sep = '«'
-"let g:airline_symbols.crypt = '®'
-"let g:airline_symbols.linenr = '¦'
-"let g:airline_symbols.maxlinenr = '±'
-"let g:airline_symbols.branch = '↑'
-"let g:airline_symbols.paste = 'ρ'
-"let g:airline_symbols.spell = '©'
-"let g:airline_symbols.notexists = 'Ɇ'
-"let g:airline_symbols.whitespace = 'Ξ'
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_powerline_fonts = 0
+let g:airline#extensions#tabline#enabled = 1
+" unicode symbols
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_symbols.crypt = '®'
+let g:airline_symbols.linenr = '¦'
+let g:airline_symbols.maxlinenr = '±'
+let g:airline_symbols.branch = '↑'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.spell = '©'
+let g:airline_symbols.notexists = 'Ɇ'
+let g:airline_symbols.whitespace = 'Ξ'
 
 "TODO-LINUX
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
-let g:airline_right_alt_sep = ''
-let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
-let g:airline_symbols.linenr = ''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" airline symbols
+"let g:airline_powerline_fonts = 1
+"let g:airline_left_sep = ''
+"let g:airline_left_alt_sep = ''
+"let g:airline_right_sep = ''
+"let g:airline_right_alt_sep = ''
+"let g:airline_symbols.branch = ''
+"let g:airline_symbols.readonly = ''
+"let g:airline_symbols.linenr = ''
+"let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 "
 " - FZF 
 "
+"let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+"TODO WINDOWS
+"let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6 } }
+"let g:fzf_preview_window = ['up:40%:hidden', 'ctrl-/']
+let $FZF_DEFAULT_OPTS="--ansi --preview-window 'right:50%' "
+"Disable preview
+command! -bang -nargs=? -complete=dir Files call fzf#vim#files(<q-args>, {'options': ['--preview', 'powershell -nologo "& "Get-Content -Head 50 {}']}, <bang>0)
+command! -bang -nargs=? -complete=dir GFiles call fzf#vim#gitfiles(<q-args>, {'options': ['--preview', 'powershell -nologo "& "Get-Content -Head 50 {}']}, <bang>0)
+command! -bang -nargs=* -complete=dir  Rg call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>), 1, {'options': ['--preview', 'C:\Users\MA30609\vimfiles\plugged\fzf.vim\bin\preview.bat {}' ]}, <bang>0)
 
-let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+nnoremap <silent> <leader><space> :GFiles<CR>
+nnoremap <silent> <leader>F :Files<CR>
+nnoremap <silent> <leader>B :Buffers<CR>
+nnoremap <silent> <leader>R :Rg<CR>
 
-nnoremap <silent> <leader><space> :Files<CR>
-nnoremap <silent> <leader>b :Buffers<CR>
-nnoremap <silent> <leader>A :Windows<CR>
-nnoremap <silent> <leader>; :BLines<CR>
+"nnoremap <silent> <leader>A :Windows<CR>
 "nnoremap <silent> <leader>o :BTags<CR>
 "nnoremap <silent> <leader>O :Tags<CR>
 "nnoremap <silent> <leader>? :History<CR>
@@ -252,7 +269,7 @@ set updatetime=300
 
 " Don't pass messages to |ins-completion-menu|.
 "set shortmess+=c
-
+"
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
 if has("patch-8.1.1564")
@@ -426,7 +443,7 @@ nmap <leader>rn <Plug>(coc-rename)
 "" Use <C-l> for trigger snippet expand.
 "imap <C-l> <Plug>(coc-snippets-expand)
 
-"" Use <C-j> for select text for visual placeholder of snippet.
+" Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
 
 "" Use <C-j> for both expand and jump (make expand higher priority.)
@@ -444,9 +461,19 @@ vmap <C-j> <Plug>(coc-snippets-select)
 " Coc-explorer
 nnoremap <space>e :CocCommand explorer<CR>
 
+" coc prettier
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Helper functions
 """"""""""""""""""""""""""""""""""""""""""""""""""
+" Disable space DiffMode
+if &diff
+    " diff mode
+    set diffopt+=iwhite
+endif
+
 " Close Buffer
 nnoremap \d :bp<cr>:bd #<cr>
 
@@ -475,3 +502,6 @@ function! DoFormatXML()
 		exe ':'.'%s/<\([^>]\)*>/\r&\r/g'
 		exe ':'.'%g/^\s*$/delete'
 endfunction
+
+
+
