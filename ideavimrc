@@ -4,7 +4,6 @@
 set visualbell
 set noerrorbells
 
-
 set ignorecase
 set smartcase
 set scrolloff=3 " 3 lines above/below cursor when scrolling
@@ -89,7 +88,7 @@ nmap <leader>X :action GotoPreviousError<cr>
 
 " Refactorings
 vmap T :action Refactorings.QuickListPopupAction<cr>
-nmap <leader>rr :action RenameElement<cr>
+nmap <leader>rn :action RenameElement<cr>
 nmap <leader>rg :action Generate<cr>
 nmap <leader>rI :action OptimizeImports<cr>
 " Inspection

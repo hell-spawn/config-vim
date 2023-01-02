@@ -14,6 +14,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " General
 """"""""""""""""""""""""""""""""""""""""""""""""""
+"TODO-WIN File format 
+"set ff=dos
+
 "Paths
 set rtp+=~/.fzf
 
@@ -171,6 +174,7 @@ Plug 'editorconfig/editorconfig-vim'
 "fzf
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'chengzeyi/fzf-preview.vim'
 
 "Color Airline
 Plug 'vim-airline/vim-airline'
@@ -187,10 +191,11 @@ Plug 'morhetz/gruvbox'
 Plug 'ryanoasis/vim-devicons'
 
 "Utilites
-Plug 'chun-yang/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-surround'
-Plug 'ap/vim-css-color'
+"Plug 'ap/vim-css-color'
+Plug 'lilydjwg/colorizer'
 
 "Snippets
 Plug 'hell-spawn/vim-spawn-snippets'
@@ -200,6 +205,15 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""
 " Config Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""
+
+"
+" AUTO PAIRS
+"
+
+let g:AutoPairsMapCR = 0
+let g:AutoPairsCenterLine = 0
+
+
 "
 "-VIM AIRLINE
 "
